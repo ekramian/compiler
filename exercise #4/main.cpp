@@ -220,7 +220,7 @@ SLR-parsing table:
 #include <stack>
 
 #define Byte char
-#define BytePtr const char * const
+#define BytePtr const Byte * const
 
 using namespace std;
 
@@ -426,10 +426,9 @@ void parse()
 	stack< int > stk;
 	const Byte *ACTION_s_a;
 	Terminal a;
+	NonTerminal A;
 	int s;
 	int t;
-
-	NonTerminal A;
 	int len_B;
 
 	stk.push( 0 );
@@ -442,7 +441,7 @@ void parse()
 		s = stk.top();
 		ACTION_s_a = ACTION[ s ][ a ];
 
-		if ( ACTION_s_a[ 0 ] == 0 )
+		if ( ACTION_s_a == 0 )
 		{
 			error( "syntax error.", token->t_line, token->t_col );
 			break;
